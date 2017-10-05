@@ -51,6 +51,7 @@ end
 
 
 get '/about' do
+  @error = 'Ошибка!!!!'
   erb :about
 end
 
