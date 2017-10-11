@@ -26,11 +26,22 @@ post '/visit' do
   @data_time = params[:data_time]
   @color = params[:color]
 
+  if @username == ''
+      @error = 'Введите Имя!!!'
+      return erb :visit
+    elsif @namber_phone == ''
+      @error = 'Введите номер телефона'
+      return erb :visit
+    elsif @data_time == ''
+      @error = 'Введите дату и время визита'
+      return erb :visit
+  end
+
   f = File.open './public/user.txt','a'
   f.write "User:#{@username}, Phone:#{@namber_phone}, Data:#{@data_time}, Hairdresser:#{@list}, Color: #{@color}. "
   f.close
 
-  erb 'Спасибо!! ждем вас'
+  erb 'Спасибо за визит'
 end
 
 post '/contacts' do
