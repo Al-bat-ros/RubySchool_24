@@ -29,23 +29,30 @@ post '/visit' do
   hh = {:user_name => 'Введите имя',
         :namber_phone => 'Введите номер телефона',
         :data_time => 'Введите дату и время'}
+   #  Вариант первый
+   # hh.each do|key,value|
+        # if params[key] == ''
 
-    hh.each do|key,value|
-        if params[key] == ''
+          # @error = hh[key]
 
-          @error = hh[key]
+          # return erb :visit
 
-          return erb :visit
+        # end
 
-        end
+    # end 
 
-    end 
+    # Вариант второй
+
+    @error = hh.select {|key,_| params[key] == ""}.values.join(',')
+
+
+
 
   f = File.open './public/user.txt','a'
   f.write "User:#{@username}, Phone:#{@namber_phone}, Data:#{@data_time}, Hairdresser:#{@list}, Color: #{@color}. "
   f.close
 
-  erb 'Спасибо за визит'
+  erb :visit
 end
 
 post '/contacts' do
