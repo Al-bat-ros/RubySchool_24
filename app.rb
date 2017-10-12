@@ -59,16 +59,18 @@ post '/contacts' do
   @Email1 = params[:Email1]
   @Message = params[:Message]
 
-  if @Email1 == '' 
-     erb 'Поле Email не должно быть пустым'
-  else
+  hhh = {:Email1 => 'Напишите email',
+         :Message => 'Напишите сообщение'}
+
+     @error = hhh.select{|key,_| params[key] == ""}.values.join(',')   
+
 
      f = File.open './public/contacts.txt','a'
      f.write "Contacts: #{@Email1}, Message: #{@Message}. "
      f.close
 
      erb 'Мы сохранили ваш контакт и сообщение!!! <a href="/contacts">Contacts</a>?'
-  end
+     
 end
 
 
